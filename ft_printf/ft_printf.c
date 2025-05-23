@@ -6,7 +6,7 @@
 /*   By: vhacman <vhacman@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:31:18 by vhacman           #+#    #+#             */
-/*   Updated: 2025/05/23 16:42:29 by vhacman          ###   ########.fr       */
+/*   Updated: 2025/05/23 16:58:36 by vhacman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,17 +98,18 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-int	main(void)
-{
-	ft_printf ("Test 01: Hello %s!\n", "world");
-	ft_printf ("Test 02: %s\n", (char *)0);
-	ft_printf ("Test 03: Number: %d\n", 123456);
-	ft_printf ("Test 04: Zero: %d\n", 0);
-	ft_printf ("Test 05: Negative: %d\n", -42);
-	ft_printf ("Test 06: Hex base: %x\n", 255);
-	ft_printf ("Test 07: Hex zero: %x\n", 0);
-	ft_printf ("Test 08: Hex big: %x\n", 4294967295u);
-	ft_printf ("Test 09: %s %d %x\n", "combo", 42, 42);
-	ft_printf ("Test 10: Start-%s-End\n", "middle");
-	return (0);
-}
+// //x testare
+// int	main(void)
+// {
+// 	ft_printf ("Test 01: Hello %s!\n", "world");
+// 	ft_printf ("Test 02: %s\n", (char *)0);
+// 	ft_printf ("Test 03: Number: %d\n", 123456);
+// 	ft_printf ("Test 04: Zero: %d\n", 0);
+// 	ft_printf ("Test 05: Negative: %d\n", -42);
+// 	ft_printf ("Test 06: Hex base: %x\n", 255);
+// 	ft_printf ("Test 07: Hex zero: %x\n", 0);
+// 	ft_printf ("Test 08: Hex big: %x\n", 4294967295u);
+// 	ft_printf ("Test 09: %s %d %x\n", "combo", 42, 42);
+// 	ft_printf ("Test 10: Start-%s-End\n", "middle");
+// 	return (0);
+// }
