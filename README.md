@@ -7,16 +7,13 @@ Implementazioni esame `Exam Rank 03`:
 ---
 
 ## 📁 Struttura del progetto
----
-Exam_03/
-│
-├── ft_printf/ # Implementazione di ft_printf
-│ └── ft_printf.c
-│
-├── get_next_line/ # Implementazione di get_next_line
-│ └── get_next_line.c
 
----
+Exam_03/  
+├── ft_printf/        # Implementazione di ft_printf  
+│   └── ft_printf.c  
+├── get_next_line/    # Implementazione di get_next_line  
+│   └── get_next_line.c  
+
 
 ## ✅ Requisiti di compilazione
 
