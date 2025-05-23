@@ -7,7 +7,7 @@ Implementazioni esame `Exam Rank 03`:
 ---
 
 ## 📁 Struttura del progetto
-`
+---
 Exam_03/
 │
 ├── ft_printf/ # Implementazione di ft_printf
@@ -15,8 +15,6 @@ Exam_03/
 │
 ├── get_next_line/ # Implementazione di get_next_line
 │ └── get_next_line.c
-`
-
 
 ---
 
