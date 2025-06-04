@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <unistd.h>
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -92,7 +91,7 @@ static char	*read_to_buffer(int fd, char *buffer)
 	while (bytes_read > 0 && !ft_strchr(buffer, '\n'))
 	{
 		bytes_read = read(fd, read_buf, BUFFER_SIZE);
-		if (bytes_read <= 0)
+		if (bytes_read < 0)
 		{
 			free(read_buf);
 			free(buffer);
@@ -118,32 +117,31 @@ char	*get_next_line(int fd)
 	line = extract_line(&buffer);
 	return (line);
 }
-// #include <stdio.h>
-// #include <fcntl.h>
-// //x testare
-// int main(int argc, char **argv)
-// {
-// 	int     fd;
-// 	char    *line;
 
-// 	if (argc != 2)
-// 	{
-// 		printf("Usage: %s <file_path>\n", argv[0]);
-// 		return (1);
-// 	}
-// 	fd = open(argv[1], O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		perror("Error opening file");
-// 		return (1);
-// 	}
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
+// //x testare
+int main(int argc, char **argv)
+{
+	int     fd;
+	char    *line;
+
+	if (argc != 2)
+	{
+		printf("Usage: %s <file_path>\n", argv[0]);
+		return (1);
+	}
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Error opening file");
+		return (1);
+	}
+	while ((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return (0);
+}
 
 // // x compilare --> gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 get_next_line.c
