@@ -60,7 +60,7 @@ int ft_printf(const char *format, ...)
 			i++;
 			if(format[i] == '%')
 				count += ft_putchar('%');
-			if(format[i] == 's')
+			else if(format[i] == 's')
 				count += ft_putstr(va_arg(args, char *));
 			else if(format[i] == 'd')
 				count += ft_putnbr(va_arg(args, int));
