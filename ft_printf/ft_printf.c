@@ -6,7 +6,7 @@
 /*   By: vhacman <vhacman@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:31:18 by vhacman           #+#    #+#             */
-/*   Updated: 2025/06/04 11:58:04 by vhacman          ###   ########.fr       */
+/*   Updated: 2025/06/04 12:47:18 by vhacman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,39 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-// // // x testare
-// // int	main(void)
-// // {
-// // 	ft_printf ("Test 01: Hello %s!\n", "world");
-// // 	ft_printf ("Test 02: %s\n", (char *)0);
-// // 	ft_printf ("Test 03: Number: %d\n", 123456);
-// // 	ft_printf ("Test 04: Zero: %d\n", 0);
-// // 	ft_printf ("Test 05: Negative: %d\n", -42);
-// // 	ft_printf ("Test 06: Hex base: %x\n", 255);
-// // 	ft_printf ("Test 07: Hex zero: %x\n", 0);
-// // 	ft_printf ("Test 08: Hex big: %x\n", 4294967295u);
-// // 	ft_printf ("Test 09: %s %d %x\n", "combo", 42, 42);
-// // 	ft_printf ("Test 10: Start-%s-End\n", "middle");
-// // 	return (0);
-// // }
+// // x testare
+// #include <stdio.h>
+// int	main(void)
+// {
+// 	ft_printf ("Test 01: Hello %s!\n", "world");
+// 	printf ("Test 01 printf: Hello %s!\n", "world");
+
+// 	ft_printf ("Test 02: %s\n", (char *)0);
+// 	printf ("Test 02 printf: %s\n", (char *)0);
+
+// 	ft_printf ("Test 03: Number: %d\n", 123456);
+// 	printf ("Test 03 printf: Number: %d\n", 123456);
+
+// 	ft_printf ("Test 04: Zero: %d\n", 0);
+// 	printf ("Test 04 printf: Zero: %d\n", 0);
+
+// 	ft_printf ("Test 05: Negative: %d\n", -42);
+// 	printf ("Test 05 printf: Negative: %d\n", -42);
+
+// 	ft_printf ("Test 06: Hex base: %x\n", 255);
+// 	printf ("Test 06 printf: Hex base: %x\n", 255);
+
+// 	ft_printf ("Test 07: Hex zero: %x\n", 0);
+// 	printf ("Test 07 printf: Hex zero: %x\n", 0);
+
+// 	ft_printf ("Test 08: Hex big: %x\n", 4294967295u);
+// 	printf ("Test 08 printf: Hex big: %x\n", 4294967295u);
+
+// 	ft_printf ("Test 09: %s %d %x\n", "combo", 42, 42);
+// 	printf ("Test 09 printf: %s %d %x\n", "combo", 42, 42);
+
+// 	ft_printf ("Test 10: Start-%s-End\n", "middle");
+// 	printf ("Test 10 printf: Start-%s-End\n", "middle");
+
+// 	return (0);
+// }
