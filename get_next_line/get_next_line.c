@@ -13,161 +13,135 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static int ft_strlen(const char *s)
+size_t	ft_strlen(const char *str)
 {
-	int i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
+	size_t	len;
+
+	len = 0;
+	while (str && str[len])
+		len++;
+	return (len);
 }
 
-static char *ft_strchr(const char *s, int c)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int i = 0;
+	size_t	len1;
+	size_t	len2;
+	char	*new_str;
+	size_t	i;
+	size_t	j;
 
-	if (!s)
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	new_str = malloc(len1 + len2 + 1);
+	if (!new_str)
 		return (NULL);
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i++;
-	}
-	if (c == '\0')
-		return ((char *)(s + i));
-	return (NULL);
-}
-
-static char *ft_strdup(const char *s)
-{
-	int i = 0;
-	int len = ft_strlen(s);
-	char *copy = malloc(len + 1);
-	if (!copy)
-		return (NULL);
-	while (s[i])
-	{
-		copy[i] = s[i];
-		i++;
-	}
-	copy[i] = '\0';
-	return (copy);
-}
-
-static char *ft_strjoin(char *s1, char *s2)
-{
-	int i = 0, j = 0;
-	int len = ft_strlen(s1);
-	int len2 = ft_strlen(s2);
-	char *joined = malloc(len + len2 + 1);
-	if (!joined)
-		return (NULL);
+	i = 0;
 	while (s1 && s1[i])
 	{
-		joined[i] = s1[i];
+		new_str[i] = s1[i];
 		i++;
 	}
+	j = 0;
 	while (s2 && s2[j])
-		joined[i++] = s2[j++];
-	joined[i] = '\0';
-	return (joined);
+		new_str[i++] = s2[j++];
+	new_str[i] = '\0';
+	free(s1);
+	return (new_str);
 }
 
-static char *free_and_null(char **ptr)
+char	*ft_strchr(const char *s, int c)
 {
-	if (*ptr)
-		free(*ptr);
-	*ptr = NULL;
+	if (!s)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
 	return (NULL);
 }
 
-static char *ft_substr(const char *s, int start, int length)
+char	*ft_strdup(const char *s1)
 {
-	int i = 0;
-	int str_len = ft_strlen(s);
+	size_t	len;
+	char	*dup;
+	size_t	i;
 
-	if (!s || start >= str_len)
-		return (ft_strdup(""));
-
-	if (start + length > str_len)
-		length = str_len - start;
-
-	char *sub = malloc(length + 1);
-	if (!sub)
+	len = ft_strlen(s1);
+	dup = malloc(len + 1);
+	i = 0;
+	if (!dup)
 		return (NULL);
-	while (i < length)
+	while (i < len)
 	{
-		sub[i] = s[start + i];
+		dup[i] = s1[i];
 		i++;
 	}
-	sub[i] = '\0';
-	return (sub);
+	dup[i] = '\0';
+	return (dup);
 }
 
-static char *extract(char **storage)
+static char	*extract_line(char **buffer)
 {
-	size_t	i;
 	char	*line;
-	char	*remaining;
-
-	if (!*storage || **storage == '\0')
-		return (NULL);
+	char	*temp;
+	size_t	i;
 
 	i = 0;
-	while ((*storage)[i] && (*storage)[i] != '\n')
-		i++;
-
-	if ((*storage)[i] == '\n')
-		line = ft_substr(*storage, 0, i + 1);
-	else
-		line = ft_substr(*storage, 0, i);
-
-	if (!line)
+	if (!*buffer || !**buffer)
 		return (NULL);
-
-	if ((*storage)[i] == '\n')
-		remaining = ft_strdup(*storage + i + 1);
-	else
-		remaining = NULL;
-
-	free(*storage);
-	*storage = remaining;
+	while ((*buffer)[i] && (*buffer)[i] != '\n')
+		i++;
+	if ((*buffer)[i] == '\n')
+		i++;
+	line = ft_strdup(*buffer);
+	line[i] = '\0';
+	temp = ft_strdup(*buffer + i);
+	free(*buffer);
+	*buffer = temp;
 	return (line);
 }
 
-char *get_next_line(int fd)
+static char	*read_to_buffer(int fd, char *buffer)
 {
-	static char *storage;
-	char *buffer, *temp;
-	ssize_t read_count;
+	char	*read_buf;
+	ssize_t	bytes_read;
+
+	read_buf = malloc(BUFFER_SIZE + 1);
+	if (!read_buf)
+		return (NULL);
+	bytes_read = 1;
+	while (bytes_read > 0 && !ft_strchr(buffer, '\n'))
+	{
+		bytes_read = read(fd, read_buf, BUFFER_SIZE);
+		if (bytes_read <= 0)
+		{
+			free(read_buf);
+			free(buffer);
+			return (NULL);
+		}
+		read_buf[bytes_read] = '\0';
+		buffer = ft_strjoin(buffer, read_buf);
+	}
+	free(read_buf);
+	return (buffer);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*buffer;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = read_to_buffer(fd, buffer);
 	if (!buffer)
 		return (NULL);
-
-	read_count = 1;
-	while (!ft_strchr(storage, '\n') && read_count > 0)
-	{
-		read_count = read(fd, buffer, BUFFER_SIZE);
-		if (read_count == -1)
-			return (free(buffer), free_and_null(&storage));
-		buffer[read_count] = '\0';
-		temp = ft_strjoin(storage, buffer);
-		if (!temp)
-			return (free(buffer), free_and_null(&storage));
-		free(storage);
-		storage = temp;
-	}
-	free(buffer);
-	return (extract(&storage));
+	line = extract_line(&buffer);
+	return (line);
 }
-
-
 // #include <stdio.h>
 // #include <fcntl.h>
 // //x testare
