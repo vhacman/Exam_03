@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vhacman <vhacman@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vhacman <vhacman@student.42roma.it>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:31:18 by vhacman           #+#    #+#             */
-/*   Updated: 2025/05/23 16:58:36 by vhacman          ###   ########.fr       */
+/*   Updated: 2025/06/04 11:58:04 by vhacman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,46 +21,35 @@ int	ft_putchar(char c)
 
 int	ft_putstr(char	*str)
 {
-	int		count;
-	int		i;
+	int		count = 0;
 
-	count = 0;
-	i = 0;
 	if (!str)
 		return (ft_putstr("(null)"));
-	while (str[i])
-	{
-		count += ft_putchar(str[i]);
-		i++;
-	}
+	while (*str)
+		count += ft_putchar(*str++);
 	return (count);
 }
 
 int	ft_putnbr(int nb)
 {
-	long	num;
-	int		count;
+	long	num = nb;
+	int		count = 0;
 
-	num = nb;
-	count = 0;
 	if (num < 0)
 	{
-		count += ft_putchar('-');
+		count = count + ft_putchar('-');
 		num = -num;
 	}
 	if (num >= 10)
-		count += ft_putnbr(num / 10);
-	count += ft_putchar((nb % 10) + '0');
+		count = count + ft_putnbr(num / 10);
+	count = count + ft_putchar((num % 10) + '0');
 	return (count);
 }
 
 int	ft_puthex(unsigned int nb)
 {
-	int		count;
-	char	*base;
-
-	count = 0;
-	base = "0123456789abcdef";
+	int		count = 0;
+	char	*base = "0123456789abcdef";
 	if (nb >= 16)
 		ft_puthex(nb / 16);
 	count = count + ft_putchar(base[nb % 16]);
@@ -70,11 +59,9 @@ int	ft_puthex(unsigned int nb)
 int	ft_printf(const char *format, ...)
 {
 	va_list		args;
-	int			count;
-	int			i;
+	int			count = 0;
+	int			i = 0;
 
-	count = 0;
-	i = 0;
 	va_start(args, format);
 	while (format[i])
 	{
@@ -98,18 +85,18 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-// //x testare
-// int	main(void)
-// {
-// 	ft_printf ("Test 01: Hello %s!\n", "world");
-// 	ft_printf ("Test 02: %s\n", (char *)0);
-// 	ft_printf ("Test 03: Number: %d\n", 123456);
-// 	ft_printf ("Test 04: Zero: %d\n", 0);
-// 	ft_printf ("Test 05: Negative: %d\n", -42);
-// 	ft_printf ("Test 06: Hex base: %x\n", 255);
-// 	ft_printf ("Test 07: Hex zero: %x\n", 0);
-// 	ft_printf ("Test 08: Hex big: %x\n", 4294967295u);
-// 	ft_printf ("Test 09: %s %d %x\n", "combo", 42, 42);
-// 	ft_printf ("Test 10: Start-%s-End\n", "middle");
-// 	return (0);
-// }
+// // // x testare
+// // int	main(void)
+// // {
+// // 	ft_printf ("Test 01: Hello %s!\n", "world");
+// // 	ft_printf ("Test 02: %s\n", (char *)0);
+// // 	ft_printf ("Test 03: Number: %d\n", 123456);
+// // 	ft_printf ("Test 04: Zero: %d\n", 0);
+// // 	ft_printf ("Test 05: Negative: %d\n", -42);
+// // 	ft_printf ("Test 06: Hex base: %x\n", 255);
+// // 	ft_printf ("Test 07: Hex zero: %x\n", 0);
+// // 	ft_printf ("Test 08: Hex big: %x\n", 4294967295u);
+// // 	ft_printf ("Test 09: %s %d %x\n", "combo", 42, 42);
+// // 	ft_printf ("Test 10: Start-%s-End\n", "middle");
+// // 	return (0);
+// // }
