@@ -13,18 +13,16 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	len1 = ft_strlen(s1);
 	size_t	len2 = ft_strlen(s2);
 	char	*new_str = malloc(len1 + len2 + 1);
-	size_t	i;
-	size_t	j;
+	size_t	i = 0;
+	size_t	j = 0;
 
 	if (!new_str)
 		return (NULL);
-	i = 0;
 	while (s1 && s1[i])
 	{
 		new_str[i] = s1[i];
 		i++;
 	}
-	j = 0;
 	while (s2 && s2[j])
 		new_str[i++] = s2[j++];
 	new_str[i] = '\0';
@@ -61,13 +59,17 @@ char	*ft_strdup(const char *s1)
 	return (dup);
 }
 
-static char	*extract_line(char **buffer)
+char	*extract_line(char **buffer)
 {
 	char	*line;
 	char	*temp;
 	size_t	i = 0;
 	if (!*buffer || !**buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
 		return (NULL);
+	}
 	while ((*buffer)[i] && (*buffer)[i] != '\n')
 		i++;
 	if ((*buffer)[i] == '\n')
@@ -80,27 +82,27 @@ static char	*extract_line(char **buffer)
 	return (line);
 }
 
-static char	*read_to_buffer(int fd, char *buffer)
+char	*read_to_buffer(int fd, char *buffer)
 {
-	char	*read_buf = malloc(BUFFER_SIZE + 1);
-	ssize_t	bytes_read;
+	char	*chunk = malloc(BUFFER_SIZE + 1);
+	ssize_t	b_read;
 
-	if (!read_buf)
+	if (!chunk)
 		return (NULL);
-	bytes_read = 1;
-	while (bytes_read > 0 && !ft_strchr(buffer, '\n'))
+	b_read = 1;
+	while (b_read > 0 && !ft_strchr(buffer, '\n'))
 	{
-		bytes_read = read(fd, read_buf, BUFFER_SIZE);
-		if (bytes_read < 0)
+		b_read = read(fd, chunk, BUFFER_SIZE);
+		if (b_read < 0)
 		{
-			free(read_buf);
+			free(chunk);
 			free(buffer);
 			return (NULL);
 		}
-		read_buf[bytes_read] = '\0';
-		buffer = ft_strjoin(buffer, read_buf);
+		chunk[b_read] = '\0';
+		buffer = ft_strjoin(buffer, chunk);
 	}
-	free(read_buf);
+	free(chunk);
 	return (buffer);
 }
 
