@@ -120,7 +120,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// // //x testare
+// //x testare
 // int main(void)
 // {
 // 	int     fd = open("file.txt", O_RDONLY);

@@ -34,7 +34,6 @@ int ft_putnbr(int nb)
 	return count;
 }
 
-
 int ft_puthex(unsigned int nb)
 {
 	int count = 0;
