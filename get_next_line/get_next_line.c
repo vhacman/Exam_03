@@ -121,29 +121,17 @@ char	*get_next_line(int fd)
 }
 
 // // //x testare
-// int main(int argc, char **argv)
+// int main(void)
 // {
-// 	int     fd;
+// 	int     fd = open("file.txt", O_RDONLY);
 // 	char    *line;
-
-// 	if (argc != 2)
-// 	{
-// 		printf("Usage: %s <file_path>\n", argv[0]);
-// 		return (1);
-// 	}
-// 	fd = open(argv[1], O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		perror("Error opening file");
-// 		return (1);
-// 	}
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (0);
+//  	while ((line = get_next_line(fd)))
+//  	{
+//  		printf("%s", line);
+//  		free(line);
+//  	}
+//  	close(fd);
+//  	return (0);
 // }
 
 // // x compilare --> gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 get_next_line.c
