@@ -1,5 +1,4 @@
 #include "get_next_line.h"
-
 size_t	ft_strlen(const char *str)
 {
 	size_t	i = 0;
@@ -120,18 +119,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// //x testare
-// int main(void)
-// {
-// 	int     fd = open("file.txt", O_RDONLY);
-// 	char    *line;
-//  	while ((line = get_next_line(fd)))
-//  	{
-//  		printf("%s", line);
-//  		free(line);
-//  	}
-//  	close(fd);
-//  	return (0);
-// }
+/*
+#include <stdlib.h>
+int	main(void)
+{
+	int	fd = open("file.txt", O_RDONLY);
+	char	*line;
 
-// // x compilare --> gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 get_next_line.c
+	while((line = get_next_line(fd)))
+	{
+		printf("%s", line);
+		free(line);
+	}
+	close(fd);
+	return 0;
+}
+*/
