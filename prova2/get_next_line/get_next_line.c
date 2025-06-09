@@ -119,19 +119,18 @@ char	*get_next_line(int fd)
 	line = extract_line(&buffer);
 	return (line);
 }
-
 // //x testare
-// int main(void)
-// {
-// 	int     fd = open("file.txt", O_RDONLY);
-// 	char    *line;
-//  	while ((line = get_next_line(fd)))
-//  	{
-//  		printf("%s", line);
-//  		free(line);
-//  	}
-//  	close(fd);
-//  	return (0);
-// }
+ int main(void)
+{
+	int     fd = open("test.txt", O_RDONLY);
+ 	char    *line;
+  	while ((line = get_next_line(fd)))
+  	{
+  		printf("%s", line);
+  		free(line);
+  	}
+  	close(fd);
+  	return (0);
+ }
 
 // // x compilare --> gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 get_next_line.c
