@@ -11,6 +11,8 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	len1 = ft_strlen(s1);
 	size_t	len2 = ft_strlen(s2);
+	size_t	i = 0;
+	size_t	j = 0;
 	char	*new_str = malloc(len1 + len2 + 1);
 	size_t	i = 0;
 	size_t	j = 0;
@@ -45,11 +47,11 @@ char	*ft_strchr(const char *s, char c)
 char	*ft_strdup(const char *str)
 {
 	size_t	len = ft_strlen(str);
-	char	*new = malloc(len + 1);
 	size_t	i = 0;
-
+	char	*new = malloc(len + 1);
 	if(!new)
 		return NULL;
+
 	while(i < len)
 	{
 		new[i] = str[i];
@@ -59,14 +61,41 @@ char	*ft_strdup(const char *str)
 	return new;
 }
 
+<<<<<<< HEAD
+=======
+char	*extract_line(char **buffer)
+{
+	char	*temp;
+	char	*line;
+	size_t	i = 0;
+
+	if(!*buffer || !**buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
+		return NULL;
+	}
+
+	while((*buffer)[i] && (*buffer)[i] != '\n')
+		i++;
+	if((*buffer)[i] == '\n')
+		i++;
+	line = ft_strdup(*buffer);
+	line[i] = '\0';
+	temp = ft_strdup(*buffer + i);
+	free(*buffer);
+	*buffer = temp;
+	return line;
+}
+
+>>>>>>> c8413ff (ok)
 char	*read_to_buffer(int fd, char *buffer)
 {
 	char	*chunk = malloc(BUFFER_SIZE + 1);
-	ssize_t	i = 0;
+	ssize_t	i = 1;
 
 	if(!chunk)
 		return NULL;
-	i = 1;
 	while(i > 0 && !ft_strchr(buffer, '\n'))
 	{
 		i = read(fd, chunk, BUFFER_SIZE);
@@ -123,12 +152,18 @@ char	*get_next_line(int fd)
 
 int	main()
 {
-	int	fd = open("file.txt", O_RDONLY);
+	int fd = open("file.txt", O_RDONLY);
 	char	*line;
+
 	while((line = get_next_line(fd)))
 	{
 		printf("%s", line);
-		free(line);
+		free (line);
 	}
+<<<<<<< HEAD
 	close(fd);
+=======
+	close (fd);
+	return 0;
+>>>>>>> c8413ff (ok)
 }
