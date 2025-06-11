@@ -1,3 +1,0 @@
-La prima riga
-la seconda riga
-la terza riga senza newline
